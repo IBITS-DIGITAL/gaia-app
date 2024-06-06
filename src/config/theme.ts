@@ -17,6 +17,8 @@ export const appTheme = {
   /** GAIA App Theme */
   transition: 'all .3s ease',
   borderRadius: '6px',
+  color: '#818181',
+  linkColor: '#277568',
 
   /** TextInput */
   textInputColor: '#fff',
@@ -30,8 +32,10 @@ export const appTheme = {
 
   /** Button */
   buttonColor: '#fff',
+  buttonColorLight: '#333',
   buttonSize: '14px',
   buttonBg: '#277568',
+  buttonBgLight: '#fff',
   buttonBgPressed: 'red',
   buttonHeight: '56px',
 }

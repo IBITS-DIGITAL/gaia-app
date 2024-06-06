@@ -1,14 +1,27 @@
 import styled from 'styled-components/native'
-import { Text, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import { Link } from 'expo-router'
 
+const getVariation = (variation: string, theme: any) => {
+  switch(true) {
+    case variation === 'light':
+      return {
+        bg: theme.buttonBgLight,
+        color: theme.buttonColorLight
+      }
+    default: return {
+      bg: theme.buttonBg,
+      color: theme.buttonColor
+    }
+  }
+}
 export const ButtonContainer = styled.View<any>`
-  ${({isLink, theme, width}) => !isLink ? `
-    border-radius: 15px;
-    background-color: ${theme.buttonBg};
+  ${({isLink, theme, width, variation, borderRadius}) => !isLink ? `
+    border-radius: ${borderRadius};
+    background-color: ${getVariation(variation, theme).bg};
     width: ${width};
   ` : ''}
-`;
+`
 
 export const Button = styled(Link)<any>`
   ${({isLink}) => !isLink ? `
@@ -26,16 +39,21 @@ export const Button = styled(Link)<any>`
       `,
     })}
   ` : ''}
-`;
+`
 
-export const ButtonText = styled(Text)<any>`
-  ${({isLink, theme}) => isLink ? `
-    color: ${theme.buttonBg};
-    font-size: 12px;
+export const ButtonText = styled.Text<any>`
+  ${({isLink, theme, variation}) => isLink ? `
+    color: ${theme.linkColor};
+    font-size: 14px;
     line-height: 18px;
   ` : `
     font-size: 14px;
     line-height: 21px;
-    color: white;
+    color: ${getVariation(variation, theme).color};
   `}
-`;
+`
+
+export const Image = styled.Image`
+  height: 20px;
+  margin-right: 10px;
+`

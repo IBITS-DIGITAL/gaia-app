@@ -1,19 +1,19 @@
 import { useEffect, useState, useRef } from 'react'
-import Input from 'src/components/TextInput'
-import Button from 'src/components/Button'
-import ScreenLayout from 'src/components/ScreenLayout'
-import ContainerComponent from 'src/components/ContainerComponent'
+import { TextInput } from 'src/components/TextInput'
+import { Button } from 'src/components/Button'
+import { Text } from 'src/components/Text'
+import { StyledContainer } from 'src/components/StyledContainer'
+import { Logo } from 'src/components/Logo'
+import { Animated, Easing } from 'react-native'
+import { Container, InnerContainer } from 'src/components/Container'
 import * as S from './styled'
-import loginBg from 'src/assets/images/login-bg.jpeg'
-import logo from 'src/assets/images/gaia-logo.png'
 import loginSplashText from 'src/assets/images/gaia-login-splash-text.png'
-import { Text, Animated, Dimensions, Easing } from 'react-native'
+import googleIcon from 'src/assets/images/google-icon.png'
+import appleIcon from 'src/assets/images/apple-icon.png'
 
 export default function HomeScreen() {
   const [inputValue, setInputValue] = useState('')
   const startOpacity = useRef(new Animated.Value(1)).current
-  const loginOpacity = useRef(new Animated.Value(0)).current
-  const loginTranslateY = useRef(new Animated.Value(Dimensions.get("screen").height / 4)).current
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,83 +24,72 @@ export default function HomeScreen() {
         useNativeDriver: true,
       }).start()
 
-      Animated.timing(loginOpacity, {
-        toValue: 1,
-        duration: 400,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start()
-
-      Animated.timing(loginTranslateY, {
-        toValue: 0,
-        duration: 400,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: true,
-      }).start()
-
-    }, 800)
-  }, [startOpacity, loginOpacity, loginTranslateY])
+    }, 600)
+  }, [startOpacity])
 
   return (
-    <ScreenLayout testID="home-screen-layout">
-      <S.Content
-        source={loginBg}
-        resizeMode="cover"
-        testID="home-screen-content"
-      >
-        <S.GradientOverlay colors={[
-          'rgba(51,51,51,0)',
-          'rgba(51,51,51,1)'
-        ]}/>
-        <S.SplashTextContainer style={{ opacity: startOpacity }}>
-          <S.SplashText source={loginSplashText}/>
-        </S.SplashTextContainer>
+    <Container>
+      <S.SplashTextContainer style={{ opacity: startOpacity }}>
+        <S.SplashText source={loginSplashText}/>
+      </S.SplashTextContainer>
 
-        <S.LoginContainer
-          style={{
-            opacity: loginOpacity,
-            transform: [{ translateY: loginTranslateY }],
-          }}
-        >
-          <S.GradientOverlay colors={[
-            'rgba(51,51,51,0)',
-            'rgba(51,51,51,0.5)',
-            'rgba(51,51,51,0.7)',
-            'rgba(51,51,51,1)',
-            'rgba(51,51,51,1)'
-          ]}/>
-          <ContainerComponent styles="my-70px items-center position-relative">
-            <S.Logo source={logo}/>
-          </ContainerComponent>
+      <InnerContainer>
 
-          <ContainerComponent styles="mb-10px">
-            <Input label="Username"/>
-          </ContainerComponent>
+        <StyledContainer styles="my-70px items-center position-relative">
+          <Logo/>
+        </StyledContainer>
 
-          <ContainerComponent styles="mb-5px">
-            <Input
-              label="Password"
-              value={inputValue}
-              onChange={setInputValue}
-              secureTextEntry
-            />
-          </ContainerComponent>
+        <StyledContainer styles="mb-10px">
+          <TextInput label="Username"/>
+        </StyledContainer>
 
-          <ContainerComponent styles="mb-30px items-right">
-            <Button isLink href="/forgot-passowrd">Forgot Password?</Button>
-          </ContainerComponent>
+        <StyledContainer styles="mb-5px">
+          <TextInput
+            label="Password"
+            value={inputValue}
+            onChange={setInputValue}
+            secureTextEntry
+          />
+        </StyledContainer>
 
-          <ContainerComponent styles="mb-40px">
-            <Button>Login</Button>
-          </ContainerComponent>
+        <StyledContainer styles="mb-30px items-right">
+          <Button isLink href="/forgot-password">Forgot Password?</Button>
+        </StyledContainer>
 
-          <ContainerComponent styles="mb-30px items-center">
-            <Text>- or -</Text>
-          </ContainerComponent>
-          
-        </S.LoginContainer>
+        <StyledContainer styles="mb-40px">
+          <Button>Login</Button>
+        </StyledContainer>
 
-      </S.Content>
-    </ScreenLayout>
+        <StyledContainer styles="mb-30px items-center">
+          <Text>- or -</Text>
+        </StyledContainer>
+
+        <StyledContainer styles="mb-10px">
+          <Button
+          variation="light"
+          borderRadius="6px"
+          href="/"
+          // rightImage={googleIcon}
+        >Sign in with Google</Button>
+        </StyledContainer>
+
+        <StyledContainer styles="mb-30px">
+          <Button
+            variation="light"
+            borderRadius="6px"
+            href="/"
+            // rightImage={appleIcon}
+          >Sign in with Apple</Button>
+        </StyledContainer>
+        
+        <StyledContainer styles="mb-30px items-center">
+          <Text>
+            <Text>Don’t have an account?</Text> <Button isLink href="sign-up">Sign up</Button>
+          </Text>
+        </StyledContainer>
+
+      </InnerContainer>
+
+    </Container>
   )
 }

@@ -7,24 +7,30 @@ interface Props {
   onPress?: (e: any) => void // Prop for controlled component
   width?: string
   isLink?: boolean
+  variation?: "light"
+  borderRadius?: string
+  rightImage?: any
 }
 
 export const Button = (props: Props) => {
-  const { children, onPress, href, width = '100%', isLink } = props
+  const { children, onPress, href, width = '100%', isLink, variation, borderRadius = '15px', rightImage } = props
   return (
-    <S.ButtonContainer width={width} isLink={isLink}>
+    <S.ButtonContainer
+      width={width}
+      isLink={isLink}
+      variation={variation}
+      borderRadius={borderRadius}
+    >
       <S.Button
         isLink={isLink}
         href={href || "/"} // Link destination for navigation
         onPress={onPress}
       >
-        <S.ButtonText isLink={isLink}>
+        <S.ButtonText isLink={isLink} variation={variation}>
+          {rightImage && (<S.Image source={rightImage}/>)}
           {children || 'Button Text'}
         </S.ButtonText>
       </S.Button>
     </S.ButtonContainer>
   )
 }
-
-
-export default Button

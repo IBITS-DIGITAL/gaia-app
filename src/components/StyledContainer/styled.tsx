@@ -73,4 +73,4 @@ const getStylesFromString = (shorthandString: string) => {
 
 }
 
-export const ContainerComponent = styled.View<any>`${({ styles }) => getStylesFromString(styles)}`
+export const StyledContainer = styled.View<any>`${({ styles }) => getStylesFromString(styles)}`

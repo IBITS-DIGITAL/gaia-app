@@ -1,20 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import * as S from './styled';
+import eye from 'src/assets/images/eye.png';
+import eyeClose from 'src/assets/images/eye-close.png';
 import { Animated } from 'react-native';
 
 interface Props {
   label?: string;
   value?: string; // Prop for controlled component
   onChange?: (text: string) => void; // Prop for controlled component
-  secureTextEntry?: boolean
+  secureTextEntry?: boolean;
 }
 
 export const TextInput = (props: Props) => {
-  const { label, value: externalValue, onChange: externalOnChange, secureTextEntry } = props;
+  const { label, value: externalValue, onChange: externalOnChange, secureTextEntry: initialSecureTextEntry } = props;
   const [internalValue, setInternalValue] = useState('');
   const isControlled = externalValue != null; // Determine if the component is controlled
   const value = isControlled ? externalValue : internalValue; // Use external value if controlled, otherwise internal
   const [isFocused, setIsFocused] = useState(false);
+  const [secureTextEntry, setSecureTextEntry] = useState(initialSecureTextEntry);
   const labelPosition = useRef(new Animated.Value(value ? 8 : 20)).current;
   const labelSize = useRef(new Animated.Value(value ? 12 : 16)).current;
 
@@ -52,6 +55,10 @@ export const TextInput = (props: Props) => {
     }
   };
 
+  const toggleSecureTextEntry = () => {
+    setSecureTextEntry(!secureTextEntry);
+  };
+
   return (
     <S.InputContainer>
       <S.Label
@@ -62,16 +69,21 @@ export const TextInput = (props: Props) => {
       >
         {label}
       </S.Label>
-      <S.Input
-        isFocused={isFocused}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onChangeText={handleChangeText}
-        value={value} // This is either the internal or external value
-        secureTextEntry={secureTextEntry}
-      />
+      <S.InputWrapper>
+        <S.Input
+          isFocused={isFocused}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChangeText={handleChangeText}
+          value={value} // This is either the internal or external value
+          secureTextEntry={secureTextEntry}
+        />
+        {initialSecureTextEntry && (
+          <S.EyeIconContainer onPress={toggleSecureTextEntry}>
+            <S.EyeIcon source={secureTextEntry ? eye : eyeClose} />
+          </S.EyeIconContainer>
+        )}
+      </S.InputWrapper>
     </S.InputContainer>
   );
 };
-
-export default TextInput;

@@ -7,7 +7,7 @@ export default function Root({ children }: PropsWithChildren) {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <title>Expo Router Typescript</title>
+        <title>GAIA App</title>
 
         <link rel="canonical" href="https://yourdomain.com" />
         <link rel="image_src" href="https://yourdomain.com/og-image.jpg" />

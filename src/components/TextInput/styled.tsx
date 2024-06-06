@@ -3,7 +3,8 @@ import { TextInput, Animated } from 'react-native'
 
 export const InputContainer = styled.View`
   width: 100%;
-`;
+`
+
 export const Input = styled(TextInput)<any>`
   color: ${({theme}) => theme.textInputColor};
   height: ${({theme}) => theme.textInputHeight};
@@ -12,7 +13,8 @@ export const Input = styled(TextInput)<any>`
   border-radius: ${({theme}) => theme.borderRadius};
   padding: 20px 16px 10px;
   font-size: 16px;
-`;
+  width: 100%;
+`
 
 export const Label = Animated.createAnimatedComponent(styled.Text`
   position: absolute;
@@ -21,3 +23,20 @@ export const Label = Animated.createAnimatedComponent(styled.Text`
   pointer-events: none;
   color: ${({ theme }) => theme.textInputLabelColor};
 `);
+
+export const InputWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+`
+
+export const EyeIconContainer = styled.TouchableOpacity`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+`
+
+export const EyeIcon = styled.Image`
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+`
